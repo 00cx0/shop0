@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.linlin.shop.dao.BlankDao">
+
+    <resultMap id="BaseResultMap" type="com.linlin.shop.domain.Blank" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="blank" property="blank" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <select id="list" resultType="com.linlin.shop.domain.Blank">
+        select * from blank
+    </select>
+
+    <update id="updateblank" parameterType="Blank">
+        update blank set blank=#{blank} where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+        select * from blank where id=#{id}
+    </select>
+</mapper>

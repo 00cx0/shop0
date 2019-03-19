@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.linlin.shop.dao.OrderdetailDao">
+
+    <resultMap id="BaseResultMap" type="com.linlin.shop.domain.Orderdetail" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="productname" property="productname" jdbcType="VARCHAR" />
+        <result column="productnumber" property="productnumber" jdbcType="VARCHAR" />
+        <result column="pricesubtotal" property="pricesubtotal" jdbcType="VARCHAR" />
+        <result column="receivername" property="receivername" jdbcType="VARCHAR" />
+        <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+        <result column="payway" property="payway" jdbcType="VARCHAR"/>
+
+
+
+    </resultMap>
+
+
+    <select id="list" resultType="com.linlin.shop.domain.Orderdetail">
+        select * from orderdetail
+    </select>
+
+    <insert id="addorderdetail " parameterType="orderdetail">
+        insert into orderdetail values (null,#{productname},#{productnumber},#{pricesubtotal},#{receivername},#{ordernumber},#{payway})
+    </insert>
+
+    <delete id="deleteorderdetail " parameterType="int" >
+        delete from orderdetail where id=#{id}
+    </delete>
+
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+        select * from orderdetail where id=#{id}
+    </select>
+
+</mapper>

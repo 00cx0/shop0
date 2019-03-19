@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <title>Free Responsive Admin Theme - ZONTAL</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <div align="left">
+                    <button class="btn btn-link"><strong>回到首页</strong></button>
+                </div>
+            </ul>
+
+        </div>
+    </div>
+</header>
+<!-- HEADER END-->
+<div class="navbar navbar-inverse set-radius-zero">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">
+                <h1>后台管理</h1>
+            </a>
+
+        </div>
+
+        <div class="left-div">
+            <div align="right" class="user-settings-wrapper">
+                <ul class="nav">
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--表头end-->
+<!--菜单栏-->
+<section class="menu-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar-collapse collapse ">
+                    <ul id="menu-top" class="nav navbar-nav navbar-right">
+                        <li><a href="manage.html">首页</a></li>
+                        <li><a href="manageuser.html">用户管理</a></li>
+                        <li><a class="menu-top-active" href="manageproduct.html">商品管理</a></li>
+                        <li><a href="manageblank.html">了解我们</a></li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--菜单end-->
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-head-line">商品</h4>
+
+            </div>
+            <div class="col-md-12">
+                <button id="add-model" type="button" class="btn btn-danger">添加</button>
+                <button id="delete" type="button" class="btn btn-default" onclick="deleteProduct()">删除</button>
+                <button id="update-model" type="button" class="btn btn-primary">修改</button>
+            </div>
+
+            <div class="col-md-12">
+                <table class="table table-striped table-hover">
+                    <tread>
+                        <tr>
+                            <th>#</th>
+                            <th>商品名</th>
+                            <th>商品价格</th>
+                            <th>商品信息</th>
+                            <th>商品图片</th>
+                            <th>库存</th>
+                        </tr>
+                    </tread>
+                    <tread>
+                        <tbody id="product-list"></tbody>
+                    </tread>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Administrator</input>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<!-- 底部-->
+<!-- 模态框 -->
+<!--添加商品-->
+<div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加商品</h4>
+            </div>
+            <div action="/product" class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>商品名：</label>
+                        <input id="productname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>价格：</label>
+                        <input id="productprice" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>商品信息：</label>
+                        <input id="introduce" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>图片</label>
+                        <input id="productpicture" type="file" >
+                    </div>
+                    <div class="form-group">
+                        <label>库存：</label>
+                        <input id="productstorage" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="add" type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--修改商品-->
+<div class="modal fade" id="productUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改商品信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="umodal-list">
+                    <div class="form-group">
+                        <label>商品名：</label>
+                        <input id="uproductname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>价格：</label>
+                        <input id="uproductprice" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <label>商品信息：</label>
+                        <input id="uintroduce" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>图片</label>
+                        <input id="uproductpicture" type="file" name="uproductpicture">
+                    </div>
+                    <div class="form-group">
+                        <label>库存：</label>
+                        <input id="uproductstorage" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="update" type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="assets/js/jquery-1.11.1.js"></script>
+<!-- BOOTSTRAP SCRIPTS  -->
+<script src="assets/js/bootstrap.js"></script>
+<script>
+
+
+    // 显示list
+    var id=""
+    var productname = ""
+    var productprice = ""
+    var introduce = ""
+    var productpicture = ""
+    var productstorage = ""
+
+
+    $.ajax({
+        url: "manageproduct",
+        type: "GET",
+        data:{"id":id,"productname":productname,"productprice":productprice,"introduce":introduce,"productpicture":productpicture,"productstorage":productstorage},
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var html ="";
+            $.each(json.data.data,function(i,item){
+                html +=
+                    "<tr><td>"+"<input type='checkbox' name='checkOne' value='"+item.id+"' id='checkOne' class='ck' />"+"</td>"+
+                    "<td>"+item.productname+"</td>"+
+                    "<td>"+item.productprice+"</td>"+
+                    "<td>"+item.introduce+"</td>"+
+                    "<td>"+item.productpicture+"</td>"+
+                    "<td>"+item.productstorage+"</td></tr>"
+
+            });
+            $('#product-list').html(html)
+        }
+    });
+
+    // 弹出添加的模态框,不去除背景
+    $("#add-model").click(function () {
+        $("#productAddModal").modal({
+            backdrop:"static"
+        })
+    })
+
+
+
+    // 添加
+    $(document).ready(function(){
+        $("#add").click(function () {
+
+            var productname =  $("#productname").val();
+            var productprice =  $("#productprice").val();
+            var introduce =  $("#introduce").val();
+            var productpicture =  $("#productpicture").val();
+            var productstorage =  $("#productstorage").val();
+            $.ajax({
+                url:"addproduct",
+                data:{"productname":productname,"productprice":productprice,"introduce":introduce,"productpicture":productpicture,"productstorage":productstorage},
+                type:"post",
+                success:function(data){
+                    var msg = $.parseJSON(data);
+                    if(msg.code==100){
+                        window.location.reload();
+                    }else{
+                        alert("添加失败");
+
+                    }
+                },
+                error:function(){
+                }
+            })
+        })
+    });
+
+    // 删除
+    function deleteProduct(){
+        var checkid = $("input[name='checkOne']:checked").val();
+        $.ajax({
+            url:"deleteproduct",
+            data:{"id":checkid},
+            type:"POST",
+            success:function(data){
+                var msg=$.parseJSON(data);
+                if(msg.code==100){
+                    alert("删除成功");
+                    window.location.reload();
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function () {
+                alert("删除失败");
+            }
+        })
+    }
+
+    // 修改
+    $(document).ready(function(){
+        $("#update").click(function () {
+
+            var id = $("input[name='checkOne']:checked").val();
+            var productname =  $("#uproductname").val();
+            var productprice =  $("#uproductprice").val();
+            var introduce =  $("#uintroduce").val();
+            var productpicture =  $("#uproductpicture").val();
+            var productstorage =  $("#uproductstorage").val();
+            $.ajax({
+                url:"updateproduct",
+                data:{"id":id,"productname":productname,"productprice":productprice,"introduce":introduce,"productpicture":productpicture,"productstorage":productstorage},
+                type:"post",
+                success:function(data){
+                    var msg = $.parseJSON(data);
+                    if(msg.code==100){
+                        alert("修改成功");
+                        window.location.reload();
+                    }else{
+                        alert("修改失败");
+                    }
+                },
+                error:function(){
+                }
+            })
+        })
+    });
+
+    //模态框显示被修改商品信息
+
+    $("#update-model").click(function () {
+        $("#productUpdateModal").modal({
+            backdrop:"static"
+        })
+        var checkid = $("input[name='checkOne']:checked").val();
+        var productname = ""
+        var productprice = ""
+        var introduce = ""
+        var productpicture = ""
+        var productstorage = ""
+        $.ajax({
+            url: "viewuproduct",
+            type: "GET",
+            data:{"id":checkid,"productname":productname,"productprice":productprice,"introduce":introduce,"productpicture":productpicture,"productstorage":productstorage},
+            success: function (data) {
+                var json = $.parseJSON(data);
+                $.each(json.data.data,function(i,item){
+                        console.log(item);
+                        $("#uproductname").val(item.productname);//input的赋值用这种方式
+                        $("#uproductprice").val(item.productprice);
+                        $("#uintroduce").val(item.introduce);
+                        $("input[name='uproductpicture']").attr(item.productpicture);
+                        // $("#uproductpicture").val(item.productpicture);
+                        $("#uproductstorage").val(item.productstorage);
+                });
+
+            }
+        });
+    })
+
+
+</script>
+</body>
+</html>

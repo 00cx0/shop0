@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>commerce</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+     <header>
+        <div class="container">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                    <div align="left">
+                    <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 15px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings">
+                                <div align="center" class="media">
+                                <a href="login.html" class="btn btn-info btn-sm">登录</a>&nbsp; <a href="register.html" class="btn btn-danger btn-sm">注册</a>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+
+            </div>
+        </div>
+    </header>
+    <!-- HEADER END-->
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>农鲜汇</h1>
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div align="right" class="user-settings-wrapper">
+                    <ul class="nav">
+                        <div class="search_box">
+	     		            <form>
+	     			            <input id="search" type="text" placeholder="请输入喜爱的商品">
+	     			            <button id="search-btn" class="btn-success" onclick="search-btn" type="button" >搜索</button>
+	     		            </form>
+	     	            </div>  
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--表头end-->
+    <!--菜单栏-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="index.html">首页</a></li>
+                            <li><a id="basket" href="basket.html"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;购物车</a></li>
+                            <li><a id="favorite" href="favorite.html">收藏夹</a></li>
+                            <li><a id="information" href="information.html">个人信息</a></li>
+                            <li><a href="blank.html">了解我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--菜单end-->
+    <!--中部-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-head-line">商品</h1>
+                </div>
+            </div>
+            <!--增删按钮-->
+            <!--商品-->
+            <form class="row" id="product-form"></form>
+            <!--商品-->
+            
+        </div>
+    </div>
+
+    <!-- 中部主页面 END-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    company
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- FOOTER SECTION END-->
+
+    <!-- CORE JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+
+<script>
+    // 显示list,动态添加div
+    var id=""
+    var productname = ""
+    var introduce = ""
+    var productprice = ""
+    var productpicture = ""
+
+    $.ajax({
+        url: "/product",
+        type: "GET",
+        data:{"id":id,"productname":productname,"productprice":productprice,"introduce":introduce,"productpicture":productpicture},
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var html ="";
+            $.each(json.data.data,function(i,item) {
+                html += "<div class='col-md-6'>"+
+                    "<div id='productid' class='product-list'>"+
+                    "<div class='product-list-item row'>"+
+                    "<div class='product-list-item-img'>"+
+                    "&nbsp;<img src='"+item.productpicture+"' width='200' height='160'/>"+
+                    "</div>"+
+                    "<div class='product-list-item-detail'>"+
+                    "<div><h3>"+item.productname+"</h3></div>"+
+                "<div><span class='glyphicon glyphicon-yen'>"+item.productprice+"</span>"+
+                    "</div>"+
+                    "<div>"+
+                    "<a id='productinfo' name='check' class='navbar-brand' href='productInfo.html?id="+item.id+"'><strong>&nbsp&nbsp&nbsp&nbsp去看看</strong>"+
+                    "<span class='glyphicon glyphicon-menu-right'></span>"+
+                    "</a>"+
+                    "</div></div></div></div></div></div>"
+            });
+            $('#product-form').html(html)
+        }
+    });
+
+
+    // 搜索
+    $(document).ready(function () {
+        $("#search-btn").click(function () {
+            window.location.href="productsearch.html?productname="+encodeURIComponent(encodeURIComponent($("#search").val()));
+        })
+    })
+</script>
+</body>
+</html>

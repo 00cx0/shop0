@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Free Responsive Admin Theme - ZONTAL</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME ICONS  -->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+     <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                    <div align="left">
+                    <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 15px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings">
+                                <div align="center" class="media">
+                                <a href="login.html" class="btn btn-info btn-sm">登录</a>&nbsp; <a href="register.html" class="btn btn-danger btn-sm">注册</a>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+
+            </div>
+        </div>
+    </header>
+    <!-- HEADER END-->
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>e-commerce</h1>
+                </a>
+
+            </div>
+
+            <div class="left-div">
+                <div align="right" class="user-settings-wrapper">
+                    <ul class="nav">
+                        <div class="search_box">
+	     		            <form>
+	     			            <input type="text" value="请输入喜爱的商品">
+	     			            <button type="button" >搜索</button>
+	     		            </form>
+	     	            </div>  
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--表头end-->
+    <!--菜单栏-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="index.html">首页</a></li>
+                            <li><a class="menu-top-active" href="basket.html"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;购物车</a></li>
+                            <li><a href="favorite.html">收藏夹</a></li>
+                            <li><a href="information.html">个人信息</a></li>
+                            <li><a href="blank.html">了解我们</a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--菜单 End-->
+    <!--中部-->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="page-head-line"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;购物车</h4>
+                </div>
+            </div>             
+        </div>
+        <div class="container">
+          <div class="panel panel-default">
+           <div class="panel-body">
+        	<!--tr 元素定义表格行，th 元素定义表头，td 元素定义表格单元-->
+        	<table id="basket-table" border="1" cellpadding="10" cellspacing="10" class="basket-table">
+        	 <thead>
+        	 	<tr>
+        	 	<th><input type="checkbox" id="allCheck" class="ck" /></th>
+        	 	<th>产品名</th>
+        	 	<th>数量</th>
+        	 	<th>单价</th>
+        	 	<th>小计</th>
+        	 	</tr>
+        	 </thead>
+        	 <thead>
+        	 	<tbody id="table-detail"></tbody>
+        	 </thead>
+        	</table>
+        </div>
+       </div>
+            </br>
+       <div>
+           <label>合计： </label><span id="pricetotal1"></span>
+       </div>
+       <div class="btn-basket">
+       	<a class="btn btn-block btn-default" onclick="deleteBasket()">删除</a>
+       	<a class="btn btn-danger" id="pay-detail">&nbsp;支付&nbsp;</a>
+       </div>
+      </div>
+    </div>
+    <!-- 中部 END-->
+    <!-- 模态框 -->
+    <div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">订单信息</h4>
+                </div>
+                <div action="/order" class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input id="receivername" class="form-control" id="receivername">
+                        </div>
+                        <div class="form-group">
+                            <label>地址：</label>
+                            <input id="address" class="form-control" id="address">
+                        </div>
+                        <div class="form-group">
+                            <label>电话：</label>
+                            <input id="phonenumber" class="form-control" id="phonenumber">
+                        </div>
+                        <div class="form-group">
+                            <label>支付方式：</label>
+                            <select id="payway" class="form-control">
+                                <option>网银</option>
+                                <option>支付宝</option>
+                                <option>微信</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>合计：</label>
+                            <span id="pricetotal"></span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button id="add" type="button" class="btn btn-primary">确认支付</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--模态框end-->
+     <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    Company</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- 底部-->
+    <script src="assets/js/jquery-1.11.1.js"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="assets/js/bootstrap.js"></script>
+<script>
+    // 弹出支付信息模态框
+    $("#pay-detail").click(function () {
+        $("#productAddModal").modal({
+            backdrop:"static"
+        })
+    })
+
+    // 显示购物篮
+    var id=""
+    var productname = ""
+    var productnumber = ""
+    var productprice = ""
+    var pricesubtotal=" "
+    var username = "";
+    var total =0;//合计金额
+
+    $.ajax({
+        url: "basket",
+        type: "GET",
+        data:{"id":id,"productname":productname,"productnumber":productnumber,"productnumber":productprice,"pricesubtotal":pricesubtotal,"username":username},
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var html ="";
+            $.each(json.data.data,function(i,item){
+                html += "<tr>"+
+                    "<td>"+"<input type='checkbox' name='checkOne' value='"+item.id+"' id='checkOne' class='ck' />"+"</td>"+
+                    "<td>"+item.productname+"</td>"+
+                    "<td>"+item.productnumber+"</td>"+
+                    "<td>"+item.productprice+"</td>"+
+                    "<td>"+item.pricesubtotal+"</td>"+
+                    "</tr>";
+                total+=item.productprice;
+            });
+            $('#table-detail').html(html)
+            document.getElementById('pricetotal1').innerHTML = parseFloat(total);
+            document.getElementById('pricetotal').innerHTML = parseFloat(total);
+        }
+    });
+
+    //删除
+    function deleteBasket(){
+        var checkid = $("input[name='checkOne']:checked").val();
+        $.ajax({
+            url:"basket",
+            data:{"id":checkid},
+            type:"POST",
+            success:function(data){
+                var msg=$.parseJSON(data);
+                if(msg.code==100){
+                    alert("删除成功");
+                    window.location.reload();
+                }else{
+                    alert("删除失败");
+                }
+            }
+        })
+    }
+
+    // 添加订单
+    $(document).ready(function(){
+        $("#add").click(function () {
+            var receivername = $("#receivername").val();
+            var address = $("#address").val();
+            var phonenumber= $("#phonenumber").val();
+            var pricetotal = $("#pricetotal").val();
+            var createtime = $("#createTime").val();
+            $.ajax({
+                url:"/order",
+                data:{"receivername":receivername,"address":address,"phonenumber":phonenumber,"pricetotal":pricetotal,"createtime":createtime},
+                type:"post",
+                success:function(data){
+                    var msg = $.parseJSON(data);
+                    if(msg.code==100){
+                        window.location.reload();
+                    }else{
+                        alert("添加失败");
+                    }
+                },
+                error:function(){
+                }
+            })
+        })
+    });
+</script>
+</body>
+</html>

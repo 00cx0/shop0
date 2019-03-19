@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.linlin.shop.dao.UserDao">
+
+    <insert id="insert" parameterType="com.linlin.shop.domain.User">
+        insert into user(username,password) values(#{username},#{password})
+    </insert>
+    <select id="select" resultType="user">
+        select * from user
+    </select>
+    <select id="login" parameterType="user" resultType="user">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+    <insert id="register" parameterType="User">
+<!-- insert 这个sql,values要跟前面声明的参数个数对的上
+        -->
+        insert into user(username,password,gender,role,phonenumber)
+        values(#{username},#{password},#{gender},#{role},#{phonenumber})
+    </insert>
+    <select id="findByUser" resultType="User" parameterType="String">
+        select * from user where username=#{username}
+    </select>
+</mapper>

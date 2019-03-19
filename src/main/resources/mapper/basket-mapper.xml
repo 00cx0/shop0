@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.linlin.shop.dao.BasketDao">
+
+    <resultMap id="BaseResultMap" type="com.linlin.shop.domain.Basket" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="productname" property="productname" jdbcType="VARCHAR" />
+        <result column="productnumber" property="productnumber" jdbcType="VARCHAR" />
+        <result column="productprice" property="productprice" jdbcType="VARCHAR" />
+        <result column="pricesubtotal" property="pricesubtotal" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="list" resultType="com.linlin.shop.domain.Basket">
+        select * from basket
+    </select>
+
+    <insert id="addbasket" parameterType="basket">
+        insert into basket values (null,#{productname},#{productnumber},#{productprice},#{pricesubtotal},#{username})
+    </insert>
+
+    <delete id="deletebasket" parameterType="int" >
+        delete from basket where id=#{id}
+    </delete>
+
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+        select * from basket where id=#{id}
+    </select>
+
+</mapper>

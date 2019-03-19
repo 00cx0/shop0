@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.linlin.shop.dao.FavoriteDao">
+
+    <resultMap id="BaseResultMap" type="com.linlin.shop.domain.Favorite" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="productename" property="productname" jdbcType="VARCHAR" />
+        <result column="productprice" property="productprice" jdbcType="VARCHAR" />
+        <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+
+    <select id="list" resultType="com.linlin.shop.domain.Favorite">
+        select * from favorite
+    </select>
+
+    <insert id="addfavorite" parameterType="favorite">
+        insert into favorite values (null,#{productname},#{username},#{introduce},#{productprice})
+    </insert>
+    <update id="updatefavorite" parameterType="favorite">
+        update favorite set productname=#{productname},username=#{username},introduce=#{introduce},productprice=#{productprice} where id=#{id}
+    </update>
+
+    <delete id="deletefavorite" parameterType="int" >
+        delete from favorite where id=#{id}
+    </delete>
+    <!--
+    parameterType 是参数类型，不是参数名称
+    -->
+    <select id="findById" parameterType="int" resultMap="BaseResultMap">
+        select * from favorite where id=#{id}
+    </select>
+
+</mapper>
